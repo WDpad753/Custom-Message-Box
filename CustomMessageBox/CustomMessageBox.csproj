@@ -17,7 +17,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\..\UIBaseClass\UIBaseClass\UIBaseClass.csproj" />
+    <ProjectReference Include="..\..\UIBaseClass\UIBaseClass\UIBaseClass.csproj" />
   </ItemGroup>
 
 </Project>
