@@ -16,12 +16,8 @@
     <Folder Include="MVVM\ViewModels\" />
   </ItemGroup>
 
-	<ItemGroup Condition="Exists('..\..\..\UIBaseClass\UIBaseClass\UIBaseClass.csproj')">
-		<ProjectReference Include="..\..\..\UIBaseClass\UIBaseClass\UIBaseClass.csproj" />
-	</ItemGroup>
-	
-	<ItemGroup Condition="Exists('..\..\UIBaseClass\UIBaseClass\UIBaseClass.csproj')">
-		<ProjectReference Include="..\..\UIBaseClass\UIBaseClass\UIBaseClass.csproj" />
-	</ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\UIBaseClass\UIBaseClass\UIBaseClass.csproj" />
+  </ItemGroup>
 
 </Project>
