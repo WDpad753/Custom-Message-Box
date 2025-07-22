@@ -16,7 +16,37 @@
     <Folder Include="MVVM\ViewModels\" />
   </ItemGroup>
 
-	<ItemGroup Condition="Exists('..\..\UIBaseClass\UIBaseClass\UIBaseClass.csproj')">
+	<!--<ItemGroup>
+		<ProjectReference Include="..\..\UIBaseClass\UIBaseClass\UIBaseClass.csproj"
+						  Condition="Exists('..\..\UIBaseClass\UIBaseClass\UIBaseClass.csproj')" />
+		<ProjectReference Include="..\..\..\UIBaseClass\UIBaseClass\UIBaseClass.csproj"
+						  Condition="Exists('..\..\..\UIBaseClass\UIBaseClass\UIBaseClass.csproj')" />
+	</ItemGroup>-->
+
+	<Choose>
+		<When Condition="Exists('..\..\..\UIBaseClass\UIBaseClass\UIBaseClass.csproj')">
+			<ItemGroup>
+				<ProjectReference Include="..\..\..\UIBaseClass\UIBaseClass\UIBaseClass.csproj" />
+			</ItemGroup>
+			<PropertyGroup>
+				<UIBaseClassFound>true</UIBaseClassFound>
+			</PropertyGroup>
+		</When>
+		<When Condition="Exists('..\..\UIBaseClass\UIBaseClass\UIBaseClass.csproj')">
+			<ItemGroup>
+				<ProjectReference Include="..\..\UIBaseClass\UIBaseClass\UIBaseClass.csproj" />
+			</ItemGroup>
+			<PropertyGroup>
+				<UIBaseClassFound>true</UIBaseClassFound>
+			</PropertyGroup>
+		</When>
+	</Choose>
+
+	<!--<ItemGroup Condition="Exists('..\..\UIBaseClass\UIBaseClass\UIBaseClass.csproj')">
 		<ProjectReference Include="..\..\UIBaseClass\UIBaseClass\UIBaseClass.csproj" />
 	</ItemGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\..\..\UIBaseClass\UIBaseClass\UIBaseClass.csproj" />
+	</ItemGroup>-->
 </Project>
