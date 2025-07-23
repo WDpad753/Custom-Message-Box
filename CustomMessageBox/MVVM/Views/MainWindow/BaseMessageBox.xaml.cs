@@ -1,4 +1,5 @@
 ﻿using CustomMessageBox.MVVM.Modules;
+using CustomMessageBox.Styles.UICommands.Buttons;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -9,7 +10,6 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using UIBaseClass.Controls.StyleCommands;
 
 namespace CustomMessageBox.MVVM.Views.MainWindow
 {

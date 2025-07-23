@@ -14,25 +14,7 @@
 
   <ItemGroup>
     <Folder Include="MVVM\ViewModels\" />
+    <Folder Include="Styles\Themes\" />
   </ItemGroup>
-
-	<Choose>
-		<When Condition="Exists('..\..\..\UIBaseClass\UIBaseClass\UIBaseClass.csproj')">
-			<ItemGroup>
-				<ProjectReference Include="..\..\..\UIBaseClass\UIBaseClass\UIBaseClass.csproj" />
-			</ItemGroup>
-			<PropertyGroup>
-				<UIBaseClassFound>true</UIBaseClassFound>
-			</PropertyGroup>
-		</When>
-		<When Condition="Exists('..\..\UIBaseClass\UIBaseClass\UIBaseClass.csproj')">
-			<ItemGroup>
-				<ProjectReference Include="..\..\UIBaseClass\UIBaseClass\UIBaseClass.csproj" />
-			</ItemGroup>
-			<PropertyGroup>
-				<UIBaseClassFound>true</UIBaseClassFound>
-			</PropertyGroup>
-		</When>
-	</Choose>
 
 </Project>
