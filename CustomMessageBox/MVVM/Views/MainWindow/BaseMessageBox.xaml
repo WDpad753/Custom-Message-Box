@@ -6,85 +6,79 @@
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:local="clr-namespace:CustomMessageBox"
         mc:Ignorable="d"
-        SizeToContent="WidthAndHeight"
+        Height="150" Width="300"
         AllowsTransparency="True" Background="Transparent" WindowStyle="None" WindowStartupLocation="CenterScreen"
         MouseMove="Window_MouseMove" MouseUp="Window_MouseUp" MouseLeftButtonDown="Window_MouseLeftButtonDown">
 
-    <Border x:Name="AddPopuproundBorder" BorderThickness="0" Background="White">
+    <Border x:Name="AddServicePopuproundBorder" BorderThickness="0" Background="White">
         <Border.OpacityMask>
             <VisualBrush>
                 <VisualBrush.Visual>
-                    <Border CornerRadius="5" Height="50" Width="100" Background="White"/>
+                    <Border CornerRadius="5" Height="35" Width="100" Background="White"/>
                 </VisualBrush.Visual>
             </VisualBrush>
         </Border.OpacityMask>
+        
         <Grid>
             <Grid.RowDefinitions>
-                <!--<RowDefinition Height="30*"/>
-                <RowDefinition Height="70*"/>
-                <RowDefinition Height="40*"/>-->
-                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
 
             <!-- Top MessageBox Header -->
-            <Grid Grid.Row="0" Background="LightGray" Opacity="0.8">
+            <Grid Grid.Row="0" Opacity="0.8" Background="LightGray">
                 <Grid.ColumnDefinitions>
-                    <!--<ColumnDefinition Width="10*"/>
-                    <ColumnDefinition Width="50*"/>
-                    <ColumnDefinition Width="10*"/>-->
                     <ColumnDefinition Width="10*"/>
                     <ColumnDefinition Width="50*"/>
                     <ColumnDefinition Width="10*"/>
                 </Grid.ColumnDefinitions>
 
-                <materialDesign:PackIcon Grid.Column="0" Kind="Application" Foreground="Black" Width="50" Height="25" VerticalAlignment="Center" HorizontalAlignment="Center" Background="Transparent" Margin="5"/>
-                <TextBlock Name="txtTitle"  Grid.Column="1" Text="Message Title" Foreground="Black" VerticalAlignment="Center" FontWeight="Bold" FontSize="15"/>
-                <!--<materialDesign:PackIcon Grid.Column="2" Kind="CloseCircle" Foreground="Black" Background="Transparent" VerticalAlignment="Center" HorizontalAlignment="Center" Height="25" Width="25" MouseLeftButtonUp="MouseLeftButtonUp"/>-->
-                <Button Grid.Column="2" Background="Transparent" BorderBrush="Transparent" Click="CloseButton_Click" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="0" Width="25" Height="25">
+                <materialDesign:PackIcon Grid.Column="0" Kind="Application" Foreground="Black" Width="30" Height="25" VerticalAlignment="Center" HorizontalAlignment="Center" Background="Transparent" Margin="5"/>
+                <TextBlock Name="txtTitle"  Grid.Column="1" Text="Message Title" Foreground="Black" VerticalAlignment="Center" HorizontalAlignment="Left" FontWeight="Bold" FontSize="15"/>
+                <Button Grid.Column="2" Background="Transparent" BorderBrush="Transparent" Click="CloseButton_Click" HorizontalAlignment="Right" VerticalAlignment="Center" Padding="0" Margin="5" Width="25" Height="25">
                     <materialDesign:PackIcon Kind="CloseCircle" Foreground="Black" Width="25" Height="25"/>
                 </Button>
             </Grid>
 
             <!-- MessageBox Content -->
-            <Grid Grid.Row="1" Margin="15">
-                <Grid.ColumnDefinitions>
-                    <!--<ColumnDefinition Width="30*"/>
-                    <ColumnDefinition Width="70*"/>-->
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="Auto"/>
-                </Grid.ColumnDefinitions>
+            <Border Grid.Row="1" Background="White" >
+                <Grid Margin="15" HorizontalAlignment="Stretch" VerticalAlignment="Center">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
 
-                <materialDesign:PackIcon Name="iconMsg" Grid.Column="0" Kind="Error" Foreground="DarkBlue" Width="50" Height="50" VerticalAlignment="Center" HorizontalAlignment="Center" />
-                <TextBlock Name="txtMessage" Grid.Column="1" Width="Auto" Height="Auto"
-                           Text="Message Box Content" HorizontalAlignment="Stretch" MaxWidth="300"
-                           VerticalAlignment="Center" TextWrapping="Wrap" FontSize="14" />
-            </Grid>
+                    <materialDesign:PackIcon Name="iconMsg" Grid.Column="0" Kind="Error" Foreground="DarkBlue" Width="50" Height="50" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                    <TextBlock Name="txtMessage" Grid.Column="1" Width="Auto" Height="Auto"
+                                   Text="Message Box Content" HorizontalAlignment="Stretch" MaxWidth="300"
+                                   VerticalAlignment="Center" TextWrapping="Wrap" FontSize="14" />
+                </Grid>
+            </Border>
 
             <!-- MessageBox Footer -->
-            <Grid Grid.Row="2">
-                <Grid.ColumnDefinitions>
-                    <!--<ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="Auto" />
-                    <ColumnDefinition Width="*" />-->
-                    <ColumnDefinition Width="Auto" />
-                    <ColumnDefinition Width="Auto" />
-                    <ColumnDefinition Width="Auto" />
-                </Grid.ColumnDefinitions>
+            <Border Grid.Row="2" Background="White">
+                <Grid  HorizontalAlignment="Center">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
 
-                <Border Grid.Column="1" Background="Transparent" BorderThickness="0">
-                    <Border.OpacityMask>
-                        <VisualBrush>
-                            <VisualBrush.Visual>
-                                <Border Height="35" Width="100" Background="White"/>
-                            </VisualBrush.Visual>
-                        </VisualBrush>
-                    </Border.OpacityMask>
+                    <Border Grid.Column="1" Background="White" BorderThickness="0">
+                        <!--<Border.OpacityMask>
+                            <VisualBrush>
+                                <VisualBrush.Visual>
+                                    <Border CornerRadius="10" Width="100" Height="50" Background="White"/>
+                                </VisualBrush.Visual>
+                            </VisualBrush>
+                        </Border.OpacityMask>-->
 
-                    <StackPanel Name="ButtonsPanel" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" />
-                </Border>
-            </Grid>
+                        <StackPanel Name="ButtonsPanel" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                    </Border>
+                </Grid>
+            </Border>
+            
         </Grid>
     </Border>
 </Window>

@@ -11,6 +11,7 @@ namespace CustomMessageBox.MVVM.Modules
         Error,
         Info,
         Warning,
-        Confirm
+        Confirm,
+        Default
     }
 }

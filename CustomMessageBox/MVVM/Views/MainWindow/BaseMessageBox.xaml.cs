@@ -32,7 +32,7 @@ namespace CustomMessageBox.MVVM.Views.MainWindow
             InitializeComponent();
         }
 
-        public DialogResults Show(string message, DialogTitle title, params DialogButtons[] buttons)
+        public DialogResults Show(string message, DialogTitle title = DialogTitle.Default, params DialogButtons[] buttons)
         {
             messageBox = new BaseMessageBox();
             messageBox.txtMessage.Text = message;
@@ -60,12 +60,14 @@ namespace CustomMessageBox.MVVM.Views.MainWindow
                     break;
                 case DialogTitle.Confirm:
                     messageBox.iconMsg.Kind = MaterialDesignThemes.Wpf.PackIconKind.QuestionMark;
-                    messageBox.iconMsg.Foreground = Brushes.DarkRed;
+                    messageBox.iconMsg.Foreground = Brushes.LightBlue;
                     break;
                 case DialogTitle.Warning:
                     messageBox.iconMsg.Kind = MaterialDesignThemes.Wpf.PackIconKind.Warning;
-                    messageBox.iconMsg.Foreground = Brushes.DarkRed;
+                    messageBox.iconMsg.Foreground = Brushes.LightYellow;
                     break;
+                case DialogTitle.Default:
+                    throw new ArgumentException("Unknown Selected Title in Message Box");
             }
 
             messageBox.ShowDialog(); // Use ShowDialog to show the window
@@ -104,6 +106,7 @@ namespace CustomMessageBox.MVVM.Views.MainWindow
                 HorizontalAlignment = HorizontalAlignment.Center,
                 VerticalAlignment = VerticalAlignment.Center,
                 FocusVisualStyle=null,
+                Cursor = Cursors.Hand
                 //CornerRadius=new CornerRadius(50)
             };
 
@@ -117,6 +120,9 @@ namespace CustomMessageBox.MVVM.Views.MainWindow
             // Remove MouseOver Trigger
             ControlTemplate template = new ControlTemplate(typeof(RoundButton));
             FrameworkElementFactory border = new FrameworkElementFactory(typeof(Border));
+
+            // Borders
+            border.Name = "border";
             border.SetValue(Border.BackgroundProperty, new TemplateBindingExtension(RoundButton.BackgroundProperty));
             border.SetValue(Border.BorderBrushProperty, new TemplateBindingExtension(RoundButton.BorderBrushProperty));
             border.SetValue(Border.BorderThicknessProperty, new TemplateBindingExtension(RoundButton.BorderThicknessProperty));
@@ -127,6 +133,32 @@ namespace CustomMessageBox.MVVM.Views.MainWindow
             border.AppendChild(contentPresenter);
             template.VisualTree = border;
 
+            // Triggers 
+            Trigger mouseOverTrue = new Trigger()
+            {
+                Property = UIElement.IsMouseOverProperty,
+                Value = true
+            };
+            mouseOverTrue.Setters.Add(new Setter(UIElement.OpacityProperty, 0.5, border.Name));
+            template.Triggers.Add(mouseOverTrue);
+
+            Trigger mouseOverFalse = new Trigger()
+            {
+                Property = UIElement.IsMouseOverProperty,
+                Value = false
+            };
+            mouseOverFalse.Setters.Add(new Setter(UIElement.OpacityProperty, 1.0, border.Name));
+            template.Triggers.Add(mouseOverFalse);
+
+            Trigger mousePressed = new Trigger()
+            {
+                Property = RoundButton.IsPressedProperty,
+                Value = true
+            };
+            mousePressed.Setters.Add(new Setter(Border.BorderThicknessProperty, new Thickness(0), border.Name));
+            template.Triggers.Add(mousePressed);
+
+            // Adding template to the button
             noHoverStyle.Setters.Add(new Setter(RoundButton.TemplateProperty, template));
 
             // Apply Style to the Button
@@ -187,7 +219,7 @@ namespace CustomMessageBox.MVVM.Views.MainWindow
 
         private void CloseButton_Click(object sender, RoutedEventArgs e)
         {
-            Close();
+            this.Close();
         }
     }
 }
