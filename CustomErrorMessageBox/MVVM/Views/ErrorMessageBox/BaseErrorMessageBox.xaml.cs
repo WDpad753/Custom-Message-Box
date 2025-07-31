@@ -1,6 +1,11 @@
-﻿using CustomMessageBox.MVVM.Modules;
-using CustomMessageBox.Styles.UICommands.Buttons;
+﻿using CustomErrorMessageBox.MVVM.Models;
+using CustomErrorMessageBox.MVVM.Views.ErrorMessageBox;
+using CustomErrorMessageBox.Styles.UICommands.Buttons;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -8,15 +13,14 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace CustomMessageBox.MVVM.Views.MainWindow
+namespace CustomErrorMessageBox.MVVM.Views.ErrorMessageBox
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for BaseErrorMessageBox.xaml
     /// </summary>
-    public partial class BaseMessageBox : Window
+    public partial class BaseErrorMessageBox : Window
     {
         private Point startPoint;
         private double initialHorizontalOffset;
@@ -24,22 +28,28 @@ namespace CustomMessageBox.MVVM.Views.MainWindow
         private bool draggingPopup = false;
         private Point initialMousePosition;
         private Point startDragPoint;
-        static BaseMessageBox? messageBox;
+        static BaseErrorMessageBox? errorMessageBox;
         static DialogResults result = DialogResults.No;
 
-        public BaseMessageBox()
+        public BaseErrorMessageBox()
         {
             InitializeComponent();
         }
 
-        public DialogResults Show(string message, DialogTitle title = DialogTitle.Default, params DialogButtons[] buttons)
+        public void Show(Exception ex)
         {
-            messageBox = new BaseMessageBox();
-            messageBox.txtMessage.Text = message;
-            messageBox.txtTitle.Text = messageBox.GetTitle(title);
+            var buttons = new List<DialogButtons>()
+            {
+                DialogButtons.Ok
+            };
+
+            errorMessageBox = new BaseErrorMessageBox();
+            errorMessageBox.txtBlkErrorMessage.Text = ex.Message;
+            errorMessageBox.txtBlkErrorCallStack.Text = ex.StackTrace;
+            errorMessageBox.txtTitle.Text = errorMessageBox.GetTitle(DialogTitle.Error);
 
             // Clear any existing buttons (if reused)
-            messageBox.ButtonsPanel.Children.Clear();
+            errorMessageBox.ButtonsPanel.Children.Clear();
 
             // Adding buttons based on the params list:
             foreach (var button in buttons)
@@ -48,39 +58,18 @@ namespace CustomMessageBox.MVVM.Views.MainWindow
                 AddButton(buttonText, button);         // Add the button to the custom message box
             }
 
-            switch (title)
-            {
-                case DialogTitle.Error:
-                    messageBox.iconMsg.Kind = MaterialDesignThemes.Wpf.PackIconKind.Error;
-                    messageBox.iconMsg.Foreground = Brushes.DarkRed;
-                    break;
-                case DialogTitle.Info:
-                    messageBox.iconMsg.Kind = MaterialDesignThemes.Wpf.PackIconKind.InfoCircle;
-                    messageBox.iconMsg.Foreground = Brushes.DarkBlue;
-                    break;
-                case DialogTitle.Confirm:
-                    messageBox.iconMsg.Kind = MaterialDesignThemes.Wpf.PackIconKind.QuestionMark;
-                    messageBox.iconMsg.Foreground = Brushes.LightBlue;
-                    break;
-                case DialogTitle.Warning:
-                    messageBox.iconMsg.Kind = MaterialDesignThemes.Wpf.PackIconKind.Warning;
-                    messageBox.iconMsg.Foreground = Brushes.LightYellow;
-                    break;
-                case DialogTitle.Default:
-                    throw new ArgumentException("Unknown Selected Title in Message Box");
-            }
+            errorMessageBox.iconMsg.Kind = MaterialDesignThemes.Wpf.PackIconKind.Error;
+            errorMessageBox.iconMsg.Foreground = Brushes.DarkRed;
 
-            messageBox.ShowDialog(); // Use ShowDialog to show the window
-
-            return result;
+            errorMessageBox.ShowDialog(); // Use ShowDialog to show the window
         }
 
-        public string GetTitle(DialogTitle value)
+        private string GetTitle(DialogTitle value)
         {
             return Enum.GetName(typeof(DialogTitle), value);
         }
 
-        public static string GetButton(DialogButtons value)
+        private static string GetButton(DialogButtons value)
         {
             return Enum.GetName(typeof(DialogButtons), value);
         }
@@ -176,11 +165,11 @@ namespace CustomMessageBox.MVVM.Views.MainWindow
                     _ => DialogResults.None
                 };
 
-                messageBox?.Close();
+                errorMessageBox?.Close();
             };
 
             // Add the button to the ButtonsPanel
-            messageBox?.ButtonsPanel.Children.Add(button);
+            errorMessageBox?.ButtonsPanel.Children.Add(button);
         }
 
         private void Window_MouseMove(object sender, MouseEventArgs e)

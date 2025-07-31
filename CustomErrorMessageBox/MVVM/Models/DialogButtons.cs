@@ -4,13 +4,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CustomMessageBox.MVVM.Modules
+namespace CustomErrorMessageBox.MVVM.Models
 {
-    public enum DialogResults
+    public enum DialogButtons
     {
-        None,
-        Yes,
+        Ok,
         No,
+        Yes,
         Cancel,
+        Confirm
     }
 }

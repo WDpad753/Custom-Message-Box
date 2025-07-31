@@ -1,9 +1,9 @@
-﻿using CustomMessageBox.MVVM.Views.MessageBox;
+﻿using CustomErrorMessageBox.MVVM.Views.ErrorMessageBox;
 using System.Configuration;
 using System.Data;
 using System.Windows;
 
-namespace CustomMessageBox
+namespace CustomErrorMessageBox
 {
     /// <summary>
     /// Interaction logic for App.xaml
@@ -12,7 +12,7 @@ namespace CustomMessageBox
     {
         protected override void OnStartup(StartupEventArgs e)
         {
-            MainWindow = new BaseMessageBox();
+            MainWindow = new BaseErrorMessageBox();
             MainWindow.Show();
             base.OnStartup(e);
         }
