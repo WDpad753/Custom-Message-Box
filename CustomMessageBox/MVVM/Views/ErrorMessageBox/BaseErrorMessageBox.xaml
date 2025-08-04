@@ -1,0 +1,133 @@
+﻿<Window x:Class="CustomMessageBox.MVVM.Views.ErrorMessageBox.BaseErrorMessageBox"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:local="clr-namespace:CustomMessageBox"
+        mc:Ignorable="d"
+        Height="Auto" Width="450"
+        AllowsTransparency="True" Background="Transparent" WindowStyle="None" WindowStartupLocation="CenterScreen"
+        MouseMove="Window_MouseMove" MouseUp="Window_MouseUp" MouseLeftButtonDown="Window_MouseLeftButtonDown">
+
+    <Border x:Name="AddServicePopuproundBorder" BorderThickness="0" Background="White">
+        <Border.OpacityMask>
+            <VisualBrush>
+                <VisualBrush.Visual>
+                    <Border CornerRadius="5" Height="35" Width="100" Background="White"/>
+                </VisualBrush.Visual>
+            </VisualBrush>
+        </Border.OpacityMask>
+
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <!-- Top MessageBox Header -->
+            <Grid x:Name="BoxHeader" Grid.Row="0" Opacity="0.8" Background="LightGray">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="10*"/>
+                    <ColumnDefinition Width="50*"/>
+                    <ColumnDefinition Width="10*"/>
+                </Grid.ColumnDefinitions>
+
+                <materialDesign:PackIcon Grid.Column="0" Kind="Application" Foreground="Black" Width="30" Height="25" VerticalAlignment="Center" HorizontalAlignment="Center" Background="Transparent" Margin="5"/>
+                <TextBlock Name="txtTitle"  Grid.Column="1" Text="Message Title" Foreground="Black" VerticalAlignment="Center" HorizontalAlignment="Left" FontWeight="Bold" FontSize="15"/>
+                <Button Grid.Column="2" Background="Transparent" BorderBrush="Transparent" Click="CloseButton_Click" HorizontalAlignment="Right" VerticalAlignment="Center" Padding="0" Margin="15" Width="25" Height="25">
+                    <materialDesign:PackIcon Kind="CloseCircle" Foreground="Black" Width="25" Height="25"/>
+                </Button>
+            </Grid>
+
+            <!-- MessageBox Content -->
+            <Border Grid.Row="1" Background="White" >
+                <Grid Margin="15" HorizontalAlignment="Stretch" VerticalAlignment="Center">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+
+                    <Grid Grid.Row="0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+
+                        <materialDesign:PackIcon Name="iconMsg" Grid.Column="0" Kind="Error" Foreground="DarkBlue" Width="50" Height="50" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                        <!--<TextBlock Name="txtMessage" Grid.Column="1" Width="Auto" Height="Auto"
+                                   Text="Message Box Content" HorizontalAlignment="Stretch" MaxWidth="300"
+                                   VerticalAlignment="Center" TextWrapping="Wrap" FontSize="14" />-->
+                        <TextBlock Grid.Column="1" Width="Auto" Height="Auto"
+                                   Text="The software encountered a runtime error. Please review the messages below for the detailed description of the error messages." HorizontalAlignment="Stretch" MaxWidth="371"
+                                   VerticalAlignment="Center" TextWrapping="Wrap" FontSize="14" />
+                    </Grid>
+
+                    <Grid Grid.Row="1">
+                        <Expander Style="{DynamicResource CustomExpanderStyle}" Background="{Binding Background, ElementName=BoxHeader}" Foreground="Black" Opacity="0.7" BorderThickness="1" BorderBrush="Black" Margin="7,15">
+                            <Expander.Header>
+                                <DockPanel VerticalAlignment="Stretch">
+                                    <materialDesign:PackIcon Kind="Error" Foreground="Red" VerticalAlignment="Center" HorizontalAlignment="Center" DockPanel.Dock="Left" />
+                                    <TextBlock VerticalAlignment="Center">Error Message</TextBlock>
+                                </DockPanel>
+                            </Expander.Header>
+                            <TextBlock x:Name="txtBlkErrorMessage" Background="White" Margin="0,5,0,0"/>
+                        </Expander>
+                    </Grid>
+
+                    <Grid Grid.Row="2">
+                        <Expander Style="{DynamicResource CustomExpanderStyle}" Background="{Binding Background, ElementName=BoxHeader}" Foreground="Black" Opacity="0.7" BorderThickness="1" BorderBrush="Black" Margin="7,15">
+                            <Expander.Header>
+                                <DockPanel VerticalAlignment="Stretch">
+                                    <materialDesign:PackIcon Kind="Error" Foreground="Red" VerticalAlignment="Center" HorizontalAlignment="Center" DockPanel.Dock="Left" />
+                                    <TextBlock VerticalAlignment="Center">Error Source</TextBlock>
+                                </DockPanel>
+                            </Expander.Header>
+                            <TextBlock x:Name="txtBlkErrorSource" Background="White" Margin="0,5,0,0"/>
+                        </Expander>
+                    </Grid>
+
+                    <Grid Grid.Row="3">
+                        <Expander Style="{DynamicResource CustomExpanderStyle}" Background="{Binding Background, ElementName=BoxHeader}" Foreground="Black" Opacity="0.7" BorderThickness="1" BorderBrush="Black" Margin="7,15">
+                            <Expander.Header>
+                                <DockPanel VerticalAlignment="Stretch">
+                                    <materialDesign:PackIcon Kind="Error" Foreground="Red" VerticalAlignment="Center" HorizontalAlignment="Center" DockPanel.Dock="Left" />
+                                    <TextBlock VerticalAlignment="Center">Error CallStack</TextBlock>
+                                </DockPanel>
+                            </Expander.Header>
+                            <TextBlock x:Name="txtBlkErrorCallStack" Background="White" Margin="0,5,0,0"/>
+                        </Expander>
+                    </Grid>
+
+                </Grid>
+            </Border>
+
+            <!-- MessageBox Footer -->
+            <Border Grid.Row="2" Background="White">
+                <Grid  HorizontalAlignment="Center">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+
+                    <Border Grid.Column="1" Background="White" BorderThickness="0">
+                        <!--<Border.OpacityMask>
+                            <VisualBrush>
+                                <VisualBrush.Visual>
+                                    <Border CornerRadius="10" Width="100" Height="50" Background="White"/>
+                                </VisualBrush.Visual>
+                            </VisualBrush>
+                        </Border.OpacityMask>-->
+
+                        <StackPanel Name="ButtonsPanel" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                    </Border>
+                </Grid>
+            </Border>
+
+        </Grid>
+    </Border>
+</Window>
