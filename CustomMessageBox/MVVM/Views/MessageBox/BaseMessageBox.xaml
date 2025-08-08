@@ -4,12 +4,14 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-        xmlns:local="clr-namespace:CustomMessageBox"
+        xmlns:local="clr-namespace:CustomMessageBox.MVVM.Views.MessageBox"
         mc:Ignorable="d"
         Height="150" Width="300"
         AllowsTransparency="True" Background="Transparent" WindowStyle="None" WindowStartupLocation="CenterScreen"
         MouseMove="Window_MouseMove" MouseUp="Window_MouseUp" MouseLeftButtonDown="Window_MouseLeftButtonDown">
 
+    
+    
     <Border x:Name="AddServicePopuproundBorder" BorderThickness="0" Background="White">
         <Border.OpacityMask>
             <VisualBrush>

@@ -8,9 +8,9 @@
     <UseWPF>true</UseWPF>
   </PropertyGroup>
 
-  <ItemGroup>
-    <PackageReference Include="MaterialDesignThemes" Version="5.2.1" />
-  </ItemGroup>
+    <ItemGroup>
+	    <PackageReference Include="MaterialDesignThemes" Version="5.2.1" />
+	</ItemGroup>
 
   <ItemGroup>
     <Folder Include="MVVM\ViewModels\" />
